@@ -3,7 +3,8 @@
 // @namespace   https://greasyfork.org
 // @description Lyutria created a nice little mish-mash of the Wikipedia Minimal and the Paper (Sidebar) styles (https://userstyles.org/styles/102164). I tweaked a lot of stuff and added language selection via 'Wikipedia rearrange other languages' (https://greasyfork.org/en/scripts/10731).
 // @author      Guillaume
-// @version     1.5.4
+// @version     1.5.5
+// @run-at      document-start
 // @match       *://*.wikipedia.org/wiki/*
 // @homepageURL https://greasyfork.org/scripts/31127
 // @downloadURL https://github.com/ltGuillaume/WikiMuch/raw/master/wikimuch.user.js
@@ -12,38 +13,6 @@
 
 // set your languages here
 var myLangs = ["en", "simple", "nl", "de"];
-
-var foundcount = 0;
-var plang = window.document.querySelector("div#p-lang");
-if (plang != null) {
-	var langs = plang.querySelectorAll("div > ul > li");
-	var first = langs[0];
-	if (first != null) {
-		var ul = first.parentNode;
-		var found = [];
-		for (var i = 0; i < langs.length; i++) {
-			var lncn = langs[i].className;
-			var l1 = lncn.replace(/^.*interwiki-(\S+).*$/, "$1");
-			var ln = myLangs.indexOf(l1);
-			if (ln > -1)
-				found[ln] = langs[i];
-		}
-		for (var i = found.length - 1; i >= 0; i--){
-			if (found[i]) {
-				ul.insertBefore(found[i], first);
-				first = found[i];
-				foundcount++;
-			}
-		}
-	}
-	if (foundcount == 0) { 
-		plang.parentNode.removeChild(plang);
-	} else if (first != null) {
-		while(ul.children.length > foundcount)
-			ul.removeChild(ul.children[foundcount]);
-	}
-}
-var langsSpace = 6 + 25.2 * foundcount;
 
 var css = [
 	"@font-face {",
@@ -186,7 +155,7 @@ var css = [
 	"	cursor: pointer;",
 	"}",
 	"#wpSave:hover, #wpPreview:hover, #wpDiff:hover { color: rgba(52, 123, 255, .5) !important }",
-	"#p-personal, #ca-view, #ca-edit { display: none !important }",
+	"#p-personal, #ca-view, #ca-edit, #ca-talk { display: none }",
 	"#right-navigation { margin-top: .5em }",
 	"/* Search */",
 	"#simpleSearch {",
@@ -379,15 +348,16 @@ var css = [
 	"	background-image: none !important;",
 	"	padding: .2em;",
 	"}",
-	"#mw-panel>#p-lang>div.body, #mw-panel>#p-lang>div.body *:not(.after-portlet) { display: block !important }",
-	"#mw-panel>#p-lang>div.body {",
+	"#mw-panel > #p-lang > div.body {",
 	"	position: fixed !important;",
 	"	left: 0;",
 	"	bottom: 0;",
 	"	width: 230px;",
+	" height: 0 !important;",
 	"	margin-left: 0;",
 	"	background: #f1f1f1 !important;",
 	"}",
+	"#mw-panel > #p-lang > div.body, #mw-panel > #p-lang > div.body *:not(.after-portlet) { display: block !important }",
 	"li.interlanguage-link {",
 	"	padding-left: .9em !important;",
 	"	font-size: 14px !important;",
@@ -410,16 +380,16 @@ var css = [
 	"	font-size: .85em !important;",
 	"}",
 	".wikitable td, .wikitable th { border: 1px solid #eee !important }",
-	".mw-body-content p { margin-left: 1px }",
+	".mw-body-content p { margin-left: 1px !important }",
 	".mw-body .mw-indicators { padding-top: 5em }",
 	"/* table of contents */",
 	"#toc {",
 	"	border: none !important;",
-	"	font-size: 12px;",
+	"	font-size: 12px !important;",
 	"	font-weight: 400;",
 	"/* make sidebar */",
 	"	position: fixed !important;",
-	"	display: inline-block;",
+	"	display: inline-block !important;",
 	"	top: 0;",
 	"	bottom: 0;",
 	"	left: 0;",
@@ -430,10 +400,10 @@ var css = [
 	"#toc > ul {",
 	"	overflow-y: auto !important;",
 	"	height: auto;",
-	"	background: #EDEDED center center scroll;",
+	" margin: 0;",
+	"	background: #ededed;",
 	"	vertical-align: middle !important;",
 	"	display: table-cell;",
-	"	margin: 0 0 "+ langsSpace +"px 0 !important;",
 	"	display: inline-block !important;",
 	"}",
 	".toc ul ul { margin-left: 1em !important }",
@@ -449,7 +419,7 @@ var css = [
 	"	padding-top: .25em;",
 	"	display: inline-block;",
 	"}",
-	".tocnumber { display: none }",
+	".tocnumber { display: none !important }",
 	".toc h2 { display: none !important }",
 	"div.toctitle { text-decoration: none !important }",
 	"span.toctoggle { display: none !important }",
@@ -472,10 +442,6 @@ var css = [
 	"div#protected-icon { display: none !important }"
 ].join("\n");
 
-var tabs = document.getElementById("p-views").getElementsByTagName("ul")[0];
-var talk = document.getElementById("ca-talk");
-tabs.appendChild(talk);
-
 if (typeof GM_addStyle != "undefined") {
 	GM_addStyle(css);
 } else if (typeof PRO_addStyle != "undefined") {
@@ -493,3 +459,43 @@ if (typeof GM_addStyle != "undefined") {
 		document.documentElement.appendChild(node);
 	}
 }
+
+document.addEventListener("DOMContentLoaded", function() {
+	var tabs = document.getElementById("p-views").getElementsByTagName("ul")[0];
+	var talk = document.getElementById("ca-talk");
+	tabs.appendChild(talk);
+	talk.style.display = "block";
+
+	var foundcount = 0;
+	var plang = window.document.querySelector("div#p-lang");
+	if (plang != null) {
+		var langs = plang.querySelectorAll("div > ul > li");
+		var first = langs[0];
+		if (first != null) {
+			var ul = first.parentNode;
+			var found = [];
+			for (var i = 0; i < langs.length; i++) {
+				var lncn = langs[i].className;
+				var l1 = lncn.replace(/^.*interwiki-(\S+).*$/, "$1");
+				var ln = myLangs.indexOf(l1);
+				if (ln > -1)
+					found[ln] = langs[i];
+			}
+			for (var i = found.length - 1; i >= 0; i--){
+				if (found[i]) {
+					ul.insertBefore(found[i], first);
+					first = found[i];
+					foundcount++;
+				}
+			}
+		}
+		if (foundcount == 0) { 
+			plang.parentNode.removeChild(plang);
+		} else if (first != null) {
+			while(ul.children.length > foundcount)
+				ul.removeChild(ul.children[foundcount]);
+		}
+	}
+	document.querySelector("#mw-panel > #p-lang > div.body").setAttribute("style", "height: auto !important");
+	document.querySelector("#toc > ul").setAttribute("style", "margin: 0 0 "+ (6 + 25.2 * foundcount) +"px 0 !important");
+});
