@@ -3,7 +3,7 @@
 // @namespace   https://greasyfork.org
 // @description Lyutria created a nice little mish-mash of the Wikipedia Minimal and the Paper (Sidebar) styles (https://userstyles.org/styles/102164). I tweaked a lot of stuff and added language selection via 'Wikipedia rearrange other languages' (https://greasyfork.org/en/scripts/10731).
 // @author      Guillaume
-// @version     1.5.2
+// @version     1.5.3
 // @run-at      document-start
 // @match       *://*.wikipedia.org/wiki/*
 // @homepageURL https://greasyfork.org/scripts/31127
@@ -276,11 +276,10 @@ var css = [
 	"#siteSub, .flaggedrevs_preview { display: none !important }",
 	".ambox, .tmbox, .Note, .informationbox {",
 	"	margin: 5px 0 !important;",
-	"	font-size: 18px !important;",
-	"	font-weight: 700 !important;",
+	"	background: #f9f9f9 !important;",
 	"	line-height: 1.5 !important;",
 	"	border: 1px dashed #aaa !important;",
-	"	max-width: 550px !important;",
+	"	max-width: 80% !important;",
 	"	font-weight: 300 !important;",
 	"}",
 	".ambox td, .tmbox td { padding: 10px !important }",
@@ -312,7 +311,7 @@ var css = [
 	"	border: 1px dashed #aaa !important;",
 	"	font-size: 16px !important;",
 	"}",
-	"table:not(.navbox-subgroup), .infobox, .mbox-small, .navbox, .quotebox, .referencetooltip li, .thumb, .toccolours {",
+	"table:not(.navbox-subgroup):not(.ambox), .infobox, .mbox-small, .navbox, .quotebox, .referencetooltip li, .thumb, .toccolours {",
 	"	border: 1px solid #eee !important;",
 	"	background: #f9f9f9 !important;",
 	"	border-collapse: collapse !important;",
