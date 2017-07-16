@@ -3,7 +3,7 @@
 // @namespace   https://greasyfork.org
 // @description Lyutria created a nice little mish-mash of the Wikipedia Minimal and the Paper (Sidebar) styles (https://userstyles.org/styles/102164). I tweaked a lot of stuff and added language selection via "Wikipedia rearrange other languages" (https://greasyfork.org/en/scripts/10731).
 // @author      Guillaume
-// @version     1.6
+// @version     1.6.1
 // @run-at      document-start
 // @match       *://*.wikipedia.org/wiki/*
 // @homepageURL https://greasyfork.org/scripts/31127
@@ -187,7 +187,7 @@ var css = '\
 	.suggestions-results { border: 0 !important }\
 	.suggestions-result { padding: 10px !important }\
 	.suggestions-result-current { background-color: #067bad }\
-	.imeselector, #searchEngines { display: none !important }\
+	.imeselector, #searchEngines, #ca-nstab-special { display: none !important }\
 	.mw-search-formheader {\
 		border: 0 !important;\
 		background: transparent !important;\
