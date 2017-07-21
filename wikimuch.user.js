@@ -395,8 +395,9 @@ var css = '\
 	}\
 	#toc > ul {\
 		overflow-y: auto !important;\
+		width: 100%;\
 		height: auto;\
-	 margin: 0;\
+	 	margin: 0;\
 		background: #ededed;\
 		vertical-align: middle !important;\
 		display: table-cell;\
