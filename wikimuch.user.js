@@ -3,7 +3,7 @@
 // @namespace   https://greasyfork.org
 // @description Lyutria created a nice little mish-mash of the Wikipedia Minimal and the Paper (Sidebar) styles (https://userstyles.org/styles/102164). I tweaked a lot of stuff and added language selection via "Wikipedia rearrange other languages" (https://greasyfork.org/en/scripts/10731).
 // @author      Guillaume
-// @version     1.6.3
+// @version     1.6.4
 // @icon        https://github.com/ltGuillaume/WikiMuch/raw/master/logo.png
 // @run-at      document-start
 // @match       *://*.wikipedia.org/wiki/*
@@ -281,6 +281,9 @@ var css = '\
 		border-collapse: collapse !important;\
 		color: #333;\
 	}\
+	.mwe-popups { background: #f9f9f9 !important }\
+	.mwe-popups-extract[dir="ltr"]:after { background-image: linear-gradient(to right, rgba(249,249,249,0), #f9f9f9 50%) !important }\
+	.mwe-popups-extract[dir="rtl"]:after { background-image: linear-gradient(to left, rgba(249,249,249,0),#f9f9f9 50%) !important }\
 	.infobox td, .infobox th, .tright td, .tright th, .toccolours td, .toccolours th {\
 		padding: 5px !important;\
 		background: transparent !important;\
@@ -311,7 +314,7 @@ var css = '\
 	}\
 	.Boxmerge { border: 0 !important }\
 	#coordinates { display: none !important }\
-	#mw-fr-revisiontag, #mw-fr-reviewnotice { display: none !important }\
+	#centralNotice, #mw-fr-revisiontag, #mw-fr-reviewnotice { display: none !important }\
 	sub, sup { line-height: .1em /* prevents sub/superscripts from throwing off line spacing */ }\
 	/* title */\
 	#firstHeading { padding: 10px 0 0 0 !important }\
