@@ -3,7 +3,7 @@
 // @namespace   https://greasyfork.org
 // @description Lyutria created a nice little mish-mash of the Wikipedia Minimal and the Paper (Sidebar) styles (https://userstyles.org/styles/102164). I tweaked a lot of stuff and added language selection via "Wikipedia rearrange other languages" (https://greasyfork.org/en/scripts/10731).
 // @author      Guillaume
-// @version     1.6.4
+// @version     1.6.5
 // @icon        https://github.com/ltGuillaume/WikiMuch/raw/master/logo.png
 // @run-at      document-start
 // @match       *://*.wikipedia.org/wiki/*
@@ -314,7 +314,7 @@ var css = '\
 	}\
 	.Boxmerge { border: 0 !important }\
 	#coordinates { display: none !important }\
-	#centralNotice, #mw-fr-revisiontag, #mw-fr-reviewnotice { display: none !important }\
+	#centralNotice, #localNotice, #mw-fr-revisiontag, #mw-fr-reviewnotice { display: none !important }\
 	sub, sup { line-height: .1em /* prevents sub/superscripts from throwing off line spacing */ }\
 	/* title */\
 	#firstHeading { padding: 10px 0 0 0 !important }\
