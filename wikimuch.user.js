@@ -314,7 +314,7 @@ var css = '\
 	}\
 	.Boxmerge { border: 0 !important }\
 	#coordinates { display: none !important }\
-	#centralNotice, #localNotice, #mw-fr-revisiontag, #mw-fr-reviewnotice { display: none !important }\
+	#siteNotice, #centralNotice, #localNotice, #mw-fr-revisiontag, #mw-fr-reviewnotice { display: none !important }\
 	sub, sup { line-height: .1em /* prevents sub/superscripts from throwing off line spacing */ }\
 	/* title */\
 	#firstHeading { padding: 10px 0 0 0 !important }\
