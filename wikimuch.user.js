@@ -1,94 +1,65 @@
 // ==UserScript==
-// @name        WikiMuch (Wikipedia Minimal + Paper Sidebar + Languages Mod)
+// @name        WikiMuch
 // @namespace   https://greasyfork.org
-// @description Lyutria created a nice little mish-mash of the Wikipedia Minimal and the Paper (Sidebar) styles (https://userstyles.org/styles/102164). I tweaked a lot of stuff and added language selection via "Wikipedia rearrange other languages" (https://greasyfork.org/en/scripts/10731).
+// @description Wikipedia clean and minimal theme. Press B to show/hide sidebar. Press F9 for dark mode. Custom fonts can be set via userscript variables mainFont, textFont and monoFont. Inspired by https://userstyles.org/styles/102164 and https://greasyfork.org/en/scripts/10731.
 // @author      Guillaume
-// @version     1.7.0
+// @version     2.1.1
 // @icon        https://github.com/ltGuillaume/WikiMuch/raw/master/logo.png
 // @run-at      document-start
 // @match       *://*.wikipedia.org/w/*
 // @match       *://*.wikipedia.org/wiki/*
 // @homepageURL https://greasyfork.org/scripts/31127
 // @downloadURL https://github.com/ltGuillaume/WikiMuch/raw/master/wikimuch.user.js
-// @grant       none
+// @grant       GM_getValue
+// @grant       GM_setValue
 // ==/UserScript==
 
-// set your languages here
-var myLangs = ['en', 'simple', 'nl', 'de'];
+// Default fonts
+var main = GM_getValue('mainFont') || 'Calibri, sans-serif';
+var text = GM_getValue('textFont') || 'Amasis, "Segoe UI", sans-serif';
+var mono = GM_getValue('monoFont') || '"Source Code Pro", "Lucida Sans Unicode", "Couriew New", monospace';
+
+// Default languages
+var myLangs = GM_getValue('myLangs') || ['en', 'simple', 'nl', 'de'];
+
+if (document.URL.indexOf('m.wikipedia') != -1)
+	location.assign(document.URL.replace('m.', ''));
+
+var plang = null;
+
+darkMode();
 
 var css = `
-@font-face {
-	font-family: Roboto;
-	font-style: normal;
-	font-weight: 300;
-	src: local("Roboto Light"), local("Roboto-Light"), url(https://themes.googleusercontent.com/static/fonts/roboto/v10/d-QWLnp4didxos_6urzFtg.woff) format("woff");
+html { height: auto }
+body { background: #fafafa !important }
+body, #mw-head *, #toc *, #p-lang *, .infobox * {
+	font-family: ${main} !important;
+	letter-spacing: -.015em;
 }
-@font-face {
-	font-family: Roboto;
-	font-style: normal;
-	font-weight: 400;
-	src: local("Roboto Regular"), local("Roboto-Regular"), url(https://themes.googleusercontent.com/static/fonts/roboto/v10/grlryt2bdKIyfMSOhzd1eA.woff) format("woff");
-}
-@font-face {
-	font-family: Roboto;
-	font-style: normal;
-	font-weight: 700;
-	src: local("Roboto Bold"), local("Roboto-Bold"), url(https://themes.googleusercontent.com/static/fonts/roboto/v10/vxNK-E6B13CyehuDCmvQvw.woff) format("woff");
-}
-@font-face {
-	font-family: Roboto;
-	font-style: italic;
-	font-weight: 300;
-	src: local("Roboto Light Italic"), local("Roboto-LightItalic"), url(https://themes.googleusercontent.com/static/fonts/roboto/v10/iE8HhaRzdhPxC93dOdA05z8E0i7KZn-EPnyo3HZu7kw.woff) format("woff");
-}
-@font-face {
-	font-family: Roboto;
-	font-style: italic;
-	font-weight: 400;
-	src: local("Roboto Italic"), local("Roboto-Italic"), url(https://themes.googleusercontent.com/static/fonts/roboto/v10/biUEjW7P-lfzIZFXrcy-wQ.woff) format("woff");
-}
-@font-face {
-	font-family: Roboto;
-	font-style: italic;
-	font-weight: 700;
-	src: local("Roboto Bold Italic"), local("Roboto-BoldItalic"), url(https://themes.googleusercontent.com/static/fonts/roboto/v10/owYYXKukxFDFjr0ZO8NXhz8E0i7KZn-EPnyo3HZu7kw.woff) format("woff");
-}
-@font-face {
-	font-family: "Source Code Pro";
-	font-style: normal;
-	font-weight: 400;
-	src: local("Source Code Pro"), local("SourceCodePro-Regular"), url(https://themes.googleusercontent.com/static/fonts/sourcecodepro/v4/mrl8jkM18OlOQN8JLgasDxBHWFfxJXS04xYOz0jw624.woff) format("woff");
-}
-body {
-	font-family: Roboto !important;
-	letter-spacing: -.01em;
-	background: #fafafa !important;
-}
-h1, h2, h3, h4, h5, h6 { color: #333 }
-h1 {
+h1, h2, h3, h4, h5, h6 {
+	font-family: ${main} !important;
+	color: #444;
 	border: 0 !important;
-	font-family: Roboto !important;
+}
+h1 {
 	font-weight: 700 !important;
 	font-size: 36px !important;
 }
 h2 {
-	border: 0 !important;
-	font-family: Arial !important;
-	font-weight: 400 !important;
+	font-weight: 700 !important;
 	font-size: 26px !important;
 }
 h3 {
-	border: 0 !important;
-	font-family: Arial !important;
-	font-weight: 400 !important;
+	font-weight: 700 !important;
 	font-size: 16px !important;
 }
 #content h3 {
 	font-size: 20px !important;
 }
-p {
-	font-weight: 300 !important;
-	line-height: 1.9 !important;
+dd, ol, p, ul {
+	font-family: ${text} !important;
+	letter-spacing: -.0075em;
+	line-height: 1.5 !important;
 }
 table, td, th {
 	border: 0 !important;
@@ -98,7 +69,7 @@ table, td, th {
 ul, li {
 	background: transparent !important;
 	border: 0 !important;
-	line-height: 1.8 !important;
+	line-height: 1.5 !important;
 	font-size: 14px !important;
 	font-weight: 300 !important;
 }
@@ -121,7 +92,7 @@ code {
 	color: #39892f !important;
 }
 tt {
-	font-family: "Source Code Pro", "Lucida Sans Unicode", "Courier New" !important;
+	font-family: ${mono} !important;
 	font-size: 16px !important;
 }
 a, a:link, a:hover, a:visited { color: #067bad !important }
@@ -159,22 +130,20 @@ select { padding: 0 10px }
 #simpleSearch {
 	border: 1px solid rgba(0, 0, 0, .25) !important;
 	background: transparent !important;
-	color: #000 !important;
+	color: #333 !important;
 	border-radius: 5px !important;
 	padding: 0 !important;
-	height: 1.75em !important;
+	height: 1.5em !important;
 }
 #searchInput {
 	border: 0 !important;
 	background: transparent !important;
-	font-family: Roboto !important;
 	padding: 4px 7px 7px 7px !important;
 }
 #searchButton { right: 7px !important }
 .mw-ui-input {
-	font-family: Roboto !important;
 	border: 1px solid #347bff !important;
-	color: #000 !important;
+	color: #333 !important;
 	background: #fff !important;
 	font-size: 16px !important;
 }
@@ -206,16 +175,16 @@ select { padding: 0 10px }
 	background: transparent !important;
 	border: 0 !important;
 }
-#content {
+div#content.mw-body {
 	border: 0 !important;
-	margin-left: 255px !important;
+	margin-left: 255px;
 }
 .portal { background: transparent !important }
 .uls-settings-trigger { display: none !important }
 #left-navigation { margin-left: 33px !important }
 #ca-nstab-main { display: none }
 pre {
-	font-family: "Source Code Pro", "Lucida Sans Unicode", "Couriew New", "Arial" !important;
+	font-family: ${mono} !important;
 	border: 1px solid #eee !important;
 	background: 0 !important;
 }
@@ -251,7 +220,7 @@ pre {
 .ambox td, .tmbox td { padding: 10px !important }
 .ambox-text-small, .mbox-text, .Note td {
 	font-weight: 300 !important;
-	color: #000 !important;
+	color: #333 !important;
 }
 .ambox-image, .mbox-image { display: none }
 #request_for_deletion, .ambox-serious {
@@ -293,7 +262,6 @@ table:not(.navbox-subgroup):not(.ambox), .infobox, .mbox-small, .navbox, .quoteb
 	border-bottom: 1px dashed #eee !important;
 }
 div.NavContent.hlist { border-color: #067bad !important }
-.image img:hover { opacity: .9 !important }
 .globegris { background: transparent !important }
 .mw-editsection-bracket, .references-small b, .mw-cite-backlink, .plainlinksneverexpand { display: none !important }
 #floating_object { display: none }
@@ -355,7 +323,7 @@ div.hatnote { padding-left: 0 }
 	left: 0;
 	bottom: 0;
 	width: 230px;
- height: 0 !important;
+	height: 0 !important;
 	margin-left: 0;
 	background: #f1f1f1 !important;
 }
@@ -373,7 +341,7 @@ li.interlanguage-link {
 	border-radius: 2px !important;
 	padding: 0 1.6em 2em 1em !important;
 	background: none;
-	color: #333;
+	color: #444;
 }
 .wikitable {
 	border: 1px solid #eee !important;
@@ -383,7 +351,7 @@ li.interlanguage-link {
 }
 .wikitable td, .wikitable th { border: 1px solid #eee !important }
 .mw-body-content p { margin-left: 1px !important }
-.mw-body .mw-indicators { padding-top: 5em }
+.mw-body .mw-indicators { margin-top: 5em }
 /* table of contents */
 #toc {
 	border: none !important;
@@ -391,7 +359,7 @@ li.interlanguage-link {
 	font-weight: 400;
 /* make sidebar */
 	position: fixed !important;
-	display: inline-block !important;
+	display: inline-block;
 	top: 0;
 	bottom: 0;
 	left: 0;
@@ -413,10 +381,11 @@ li.interlanguage-link {
 .toc a {
 	display: block;
 	padding: .25em 1em;
-	line-height: 1.25 !important;
+	line-height: 1 !important;
 }
 /* toc headers */
 .toclevel-1 > a > .toctext {
+	font-family: ${main} !important;
 	font-weight: 600;
 	text-transform: uppercase;
 	padding-top: .25em;
@@ -443,6 +412,38 @@ div.toctitle { text-decoration: none !important }
 }
 /* hide protected lock */
 div#protected-icon { display: none !important }
+
+html.dark,
+html.dark div,
+html.dark *,
+html.dark ::after,
+html.dark ::before {
+	background: #10100f !important;
+	color: #b0b0b0 !important;
+	text-shadow: none !important;
+	box-shadow: none !important;
+	border-color: #1c1c1b !important;
+}
+html.dark a { color: #69695d !important }
+	html.dark a:hover { color: #1d91f0 }
+html.dark img,
+html.dark svg { transition: filter .25s }
+	html.dark img:not(:hover),
+	html.dark svg:not(:hover) { filter: opacity(70%) !important }
+html.dark input,
+html.dark textarea { color: #69695d !important }
+html.dark #toc, html.dark #toc *,
+html.dark #mw-panel > #p-lang *,
+html.dark #mw-panel > #p-lang > div.body { background: #111110 !important }
+html.dark #simpleSearch,
+html.dark table:not(.navbox-subgroup):not(.ambox),
+html.dark .infobox,
+html.dark .mbox-small,
+html.dark .navbox,
+html.dark .quotebox,
+html.dark .referencetooltip li,
+html.dark .thumb,
+html.dark .toccolours { border-color: #1c1c1b !important }
 `;
 
 var cssBlock = document.createElement('style');
@@ -460,7 +461,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	talk.style.display = 'block';
 
 	var foundcount = 0;
-	var plang = window.document.querySelector('div#p-lang');
+	plang = document.getElementById('p-lang');
 	if (plang != null) {
 		var langs = plang.querySelectorAll('div > ul > li');
 		var first = langs[0];
@@ -482,13 +483,45 @@ document.addEventListener('DOMContentLoaded', function() {
 				}
 			}
 		}
-		if (foundcount == 0) { 
+		if (foundcount == 0 && plang) { 
 			plang.parentNode.removeChild(plang);
 		} else if (first != null) {
 			while(ul.children.length > foundcount)
 				ul.removeChild(ul.children[foundcount]);
 		}
 	}
-	document.querySelector('#mw-panel > #p-lang > div.body').setAttribute('style', 'height: auto !important');
-	document.querySelector('#toc > ul').setAttribute('style', 'margin: 0 0 '+ (6 + 25.2 * foundcount) +'px 0 !important');
+	var plangBody = document.querySelector('#mw-panel > #p-lang > div.body');
+	if (plangBody) plangBody.setAttribute('style', 'height: auto !important');
+	var toc = document.querySelector('#toc > ul');
+	if (toc) toc.setAttribute('style', 'margin: 0 0 '+ (6 + 25.2 * foundcount) +'px 0 !important');
+	document.getElementById('p-namespaces').outerHTML = "";
 });
+
+document.addEventListener('keydown', function(e) {
+	if (e.altKey || e.ctrlKey || e.shiftKey) return;
+	switch(e.key) {
+		case 'b':
+			if (document.activeElement.tagName == 'INPUT' || document.activeElement.tagName == 'TEXTAREA') return;
+			var toc = document.getElementById('toc');
+			if (document.getElementById('content').style.marginLeft == '0px') {
+				document.getElementById('content').style.marginLeft = '';
+				if (toc) toc.style.display = '';
+				if (plang) plang.style.display = '';
+			} else {
+				document.getElementById('content').style.marginLeft = '0px';
+				if (toc) toc.style.display = 'none';
+				if (plang) plang.style.display = 'none';
+			}
+			break;
+		case 'F9':
+			e.preventDefault();
+			GM_setValue('darkMode', !GM_getValue('darkMode') || false);
+			darkMode();
+			break;
+	}
+});
+
+function darkMode() {
+	if (GM_getValue('darkMode')) document.documentElement.classList.add('dark');
+	else document.documentElement.classList.remove('dark');
+}
