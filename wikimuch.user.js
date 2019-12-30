@@ -3,7 +3,7 @@
 // @namespace   https://greasyfork.org
 // @description Wikipedia clean and minimal theme. Press B to show/hide sidebar. Press F9 for dark mode. Custom fonts can be set via userscript variables mainFont, textFont and monoFont. Inspired by https://userstyles.org/styles/102164 and https://greasyfork.org/en/scripts/10731.
 // @author      Guillaume
-// @version     2.1.1
+// @version     2.1.2
 // @icon        https://github.com/ltGuillaume/WikiMuch/raw/master/logo.png
 // @run-at      document-start
 // @match       *://*.wikipedia.org/w/*
@@ -15,12 +15,12 @@
 // ==/UserScript==
 
 // Default fonts
-var main = GM_getValue('mainFont') || 'Calibri, sans-serif';
-var text = GM_getValue('textFont') || 'Amasis, "Segoe UI", sans-serif';
-var mono = GM_getValue('monoFont') || '"Source Code Pro", "Lucida Sans Unicode", "Couriew New", monospace';
+var mainFont = GM_getValue('mainFont') || "Calibri, sans-serif";
+var textFont = GM_getValue('textFont') || "Amasis, 'Segoe UI', sans-serif";
+var monoFont = GM_getValue('monoFont') || "'Source Code Pro', 'Lucida Sans Unicode', 'Couriew New', monospace";
 
 // Default languages
-var myLangs = GM_getValue('myLangs') || ['en', 'simple', 'nl', 'de'];
+var myLangs = GM_getValue('myLangs') || ["en", "simple", "nl", "de"];
 
 if (document.URL.indexOf('m.wikipedia') != -1)
 	location.assign(document.URL.replace('m.', ''));
@@ -33,11 +33,11 @@ var css = `
 html { height: auto }
 body { background: #fafafa !important }
 body, #mw-head *, #toc *, #p-lang *, .infobox * {
-	font-family: ${main} !important;
+	font-family: ${mainFont} !important;
 	letter-spacing: -.015em;
 }
 h1, h2, h3, h4, h5, h6 {
-	font-family: ${main} !important;
+	font-family: ${mainFont} !important;
 	color: #444;
 	border: 0 !important;
 }
@@ -57,7 +57,7 @@ h3 {
 	font-size: 20px !important;
 }
 dd, ol, p, ul {
-	font-family: ${text} !important;
+	font-family: ${textFont} !important;
 	letter-spacing: -.0075em;
 	line-height: 1.5 !important;
 }
@@ -92,7 +92,7 @@ code {
 	color: #39892f !important;
 }
 tt {
-	font-family: ${mono} !important;
+	font-family: ${monoFont} !important;
 	font-size: 16px !important;
 }
 a, a:link, a:hover, a:visited { color: #067bad !important }
@@ -184,7 +184,7 @@ div#content.mw-body {
 #left-navigation { margin-left: 33px !important }
 #ca-nstab-main { display: none }
 pre {
-	font-family: ${mono} !important;
+	font-family: ${monoFont} !important;
 	border: 1px solid #eee !important;
 	background: 0 !important;
 }
@@ -385,7 +385,7 @@ li.interlanguage-link {
 }
 /* toc headers */
 .toclevel-1 > a > .toctext {
-	font-family: ${main} !important;
+	font-family: ${mainFont} !important;
 	font-weight: 600;
 	text-transform: uppercase;
 	padding-top: .25em;
@@ -495,6 +495,9 @@ document.addEventListener('DOMContentLoaded', function() {
 	var toc = document.querySelector('#toc > ul');
 	if (toc) toc.setAttribute('style', 'margin: 0 0 '+ (6 + 25.2 * foundcount) +'px 0 !important');
 	document.getElementById('p-namespaces').outerHTML = "";
+  
+  for (pref of ['mainFont', 'textFont', 'monoFont', 'myLangs'])
+    if (!GM_getValue(pref)) GM_setValue(pref, eval(pref));
 });
 
 document.addEventListener('keydown', function(e) {
