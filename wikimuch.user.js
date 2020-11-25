@@ -3,7 +3,7 @@
 // @namespace   https://greasyfork.org
 // @description Wikipedia clean and minimal theme. Press B to show/hide sidebar. Press F9 for dark mode. Custom fonts can be set via userscript variables mainFont, textFont and monoFont. Inspired by https://userstyles.org/styles/102164 and https://greasyfork.org/en/scripts/10731.
 // @author      Guillaume
-// @version     2.1.2
+// @version     2.1.3
 // @icon        https://github.com/ltGuillaume/WikiMuch/raw/master/logo.png
 // @run-at      document-start
 // @match       *://*.wikipedia.org/w/*
@@ -318,7 +318,7 @@ div.hatnote { padding-left: 0 }
 	background-image: none !important;
 	padding: .2em;
 }
-#mw-panel > #p-lang > div.body {
+#mw-panel > #p-lang > div {
 	position: fixed !important;
 	left: 0;
 	bottom: 0;
@@ -327,7 +327,7 @@ div.hatnote { padding-left: 0 }
 	margin-left: 0;
 	background: #f1f1f1 !important;
 }
-#mw-panel > #p-lang > div.body, #mw-panel > #p-lang > div.body *:not(.after-portlet) { display: block !important }
+#mw-panel > #p-lang > div, #mw-panel > #p-lang > div *:not(.after-portlet) { display: block !important }
 li.interlanguage-link {
 	padding-left: .9em !important;
 	font-size: 14px !important;
@@ -434,7 +434,7 @@ html.dark input,
 html.dark textarea { color: #69695d !important }
 html.dark #toc, html.dark #toc *,
 html.dark #mw-panel > #p-lang *,
-html.dark #mw-panel > #p-lang > div.body { background: #111110 !important }
+html.dark #mw-panel > #p-lang > div { background: #111110 !important }
 html.dark #simpleSearch,
 html.dark table:not(.navbox-subgroup):not(.ambox),
 html.dark .infobox,
@@ -490,7 +490,7 @@ document.addEventListener('DOMContentLoaded', function() {
 				ul.removeChild(ul.children[foundcount]);
 		}
 	}
-	var plangBody = document.querySelector('#mw-panel > #p-lang > div.body');
+	var plangBody = document.querySelector('#mw-panel > #p-lang > div');
 	if (plangBody) plangBody.setAttribute('style', 'height: auto !important');
 	var toc = document.querySelector('#toc > ul');
 	if (toc) toc.setAttribute('style', 'margin: 0 0 '+ (6 + 25.2 * foundcount) +'px 0 !important');
