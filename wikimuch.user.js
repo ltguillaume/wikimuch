@@ -161,7 +161,7 @@ select { padding: 0 10px }
 .suggestions-result { padding: 10px !important }
 .suggestions-result-current { background-color: #067bad }
 .imeselector, #searchEngines, #ca-nstab-special { display: none !important }
-.vector-menu-tabs, .vector-menu-tabs a { background: none }
+.vector-menu-tabs, .vector-menu-tabs a, #mw-head .vector-menu-dropdown h3 { background: none }
 .mw-search-formheader {
 	border: 0 !important;
 	background: transparent !important;
