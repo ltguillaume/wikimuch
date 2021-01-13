@@ -3,13 +3,14 @@
 // @namespace   https://greasyfork.org
 // @description Wikipedia clean and minimal theme. Press B to show/hide sidebar. Press F9 for dark mode. Custom fonts can be set via userscript variables mainFont, textFont and monoFont. Inspired by https://userstyles.org/styles/102164 and https://greasyfork.org/en/scripts/10731.
 // @author      Guillaume
-// @version     2.1.6
+// @version     2.1.7
 // @icon        https://github.com/ltGuillaume/WikiMuch/raw/master/logo.png
 // @run-at      document-start
 // @match       *://*.wikipedia.org/w/*
 // @match       *://*.wikipedia.org/wiki/*
 // @homepageURL https://greasyfork.org/scripts/31127
 // @downloadURL https://github.com/ltGuillaume/WikiMuch/raw/master/wikimuch.user.js
+// @grant       GM_addStyle
 // @grant       GM_getValue
 // @grant       GM_setValue
 // ==/UserScript==
@@ -29,7 +30,7 @@ var plang = null;
 
 darkMode();
 
-var css = `
+GM_addStyle(`
 html { height: auto }
 body { background: #fafafa !important }
 body, #mw-head *, #toc *, #p-lang *, .infobox * {
@@ -162,7 +163,7 @@ select { padding: 0 10px }
 .suggestions-result { padding: 10px !important }
 .suggestions-result-current { background-color: #067bad }
 .imeselector, #searchEngines, #ca-nstab-special { display: none !important }
-.vector-menu-tabs, .vector-menu-tabs a, #mw-head .vector-menu-dropdown h3 { background: none }
+.vector-menu-tabs, .vector-menu-tabs a, #mw-head .vector-menu-dropdown h3 { background: none !important }
 .mw-search-formheader {
 	border: 0 !important;
 	background: transparent !important;
@@ -447,15 +448,7 @@ html.dark .quotebox,
 html.dark .referencetooltip li,
 html.dark .thumb,
 html.dark .toccolours { border-color: #1c1c1b !important }
-`;
-
-var cssBlock = document.createElement('style');
-cssBlock.innerHTML = css;
-var heads = document.getElementsByTagName('head');
-if (heads.length > 0)
-	heads[0].appendChild(cssBlock);
-else
-	document.documentElement.appendChild(cssBlock);
+`);
 
 document.addEventListener('DOMContentLoaded', function() {
 	var tabs = document.getElementById('p-views').getElementsByTagName('ul')[0];
