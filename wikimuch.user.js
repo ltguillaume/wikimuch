@@ -3,16 +3,16 @@
 // @namespace   https://greasyfork.org
 // @description Wikipedia clean and minimal theme. Press B to show/hide sidebar. Press F9 for dark mode. Custom fonts can be set via userscript variables mainFont, textFont and monoFont. Inspired by https://userstyles.org/styles/102164 and https://greasyfork.org/en/scripts/10731.
 // @author      Guillaume
-// @version     2.1.8
+// @version     2.1.9
+// @downloadURL https://github.com/ltGuillaume/WikiMuch/raw/master/wikimuch.user.js
 // @icon        https://github.com/ltGuillaume/WikiMuch/raw/master/logo.png
-// @run-at      document-start
 // @match       *://*.wikipedia.org/w/*
 // @match       *://*.wikipedia.org/wiki/*
 // @homepageURL https://greasyfork.org/scripts/31127
-// @downloadURL https://github.com/ltGuillaume/WikiMuch/raw/master/wikimuch.user.js
 // @grant       GM_addStyle
 // @grant       GM_getValue
 // @grant       GM_setValue
+// @run-at      document-start
 // ==/UserScript==
 
 // Default fonts
@@ -27,8 +27,6 @@ if (document.URL.indexOf('m.wikipedia') != -1)
 	location.assign(document.URL.replace('m.', ''));
 
 var plang = null;
-
-darkMode();
 
 GM_addStyle(`
 html { height: auto }
@@ -317,7 +315,9 @@ div.hatnote { padding-left: 0 }
 	transition-duration: .25s !important;
 }
 #mw-head:hover { opacity: 1 !important }
-#mw-panel { padding: 0 }
+#mw-panel {
+  padding: 0;
+}
 #mw-panel :not(#p-lang) {
 	display: none !important;
 	background-image: none !important;
@@ -452,6 +452,8 @@ html.dark .toccolours { border-color: #1c1c1b !important }
 `);
 
 document.addEventListener('DOMContentLoaded', function() {
+  darkMode();
+
 	var tabs = document.getElementById('p-views').getElementsByTagName('ul')[0];
 	var talk = document.getElementById('ca-talk');
 	tabs.appendChild(talk);
@@ -525,3 +527,5 @@ function darkMode() {
 	if (GM_getValue('darkMode')) document.documentElement.classList.add('dark');
 	else document.documentElement.classList.remove('dark');
 }
+
+darkMode();
