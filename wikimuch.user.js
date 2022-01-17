@@ -126,7 +126,7 @@ select { padding: 0 10px }
 }
 #wpSave:hover, #wpPreview:hover, #wpDiff:hover { color: rgba(52, 123, 255, .5) !important }
 #p-personal, #ca-view, #ca-edit, #ca-talk { display: none }
-#right-navigation { margin-top: .5em }
+#right-navigation { margin-top: .5em !important }
 /* Search */
 #simpleSearch {
 	border: 1px solid rgba(0, 0, 0, .25) !important;
