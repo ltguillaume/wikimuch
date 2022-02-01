@@ -62,6 +62,12 @@ dd, ol, p, ul {
 	letter-spacing: -.0075em;
 	line-height: 1.5 !important;
 }
+table th {
+	position: -webkit-sticky;
+	position: sticky;
+	top: 0;
+	z-index: 1;
+}
 table, td, th {
 	border: 0 !important;
 	border-collapse: collapse !important;
