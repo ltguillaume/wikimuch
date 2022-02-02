@@ -3,7 +3,7 @@
 // @namespace   https://greasyfork.org
 // @description Wikipedia clean and minimal theme. Press B to show/hide sidebar. Press F9 for dark mode. Custom fonts can be set via userscript variables mainFont, textFont and monoFont. Inspired by https://userstyles.org/styles/102164 and https://greasyfork.org/en/scripts/10731.
 // @author      Guillaume
-// @version     2.3.1
+// @version     2.3.2
 // @downloadURL https://github.com/ltGuillaume/WikiMuch/raw/master/wikimuch.user.js
 // @icon        https://github.com/ltGuillaume/WikiMuch/raw/master/logo.png
 // @match       *://*.wikipedia.org/w/*
@@ -62,7 +62,8 @@ dd, ol, p, ul {
 	letter-spacing: -.0075em;
 	line-height: 1.5 !important;
 }
-table th {
+table:not(.infobox):not(.sidebar).wikitable thead,
+tr:first-child th:not(.infobox-above):not(.summary) {
 	position: -webkit-sticky;
 	position: sticky;
 	top: 0;
