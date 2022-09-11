@@ -3,7 +3,7 @@
 // @namespace   https://greasyfork.org
 // @description Wikipedia clean and minimal theme. Press B to show/hide sidebar. Press F9 for dark mode. Custom fonts can be set via userscript variables mainFont, textFont and monoFont. Inspired by https://userstyles.org/styles/102164 and https://greasyfork.org/en/scripts/10731.
 // @author      Guillaume
-// @version     2.3.3
+// @version     2.3.4
 // @downloadURL https://github.com/ltGuillaume/WikiMuch/raw/master/wikimuch.user.js
 // @icon        https://github.com/ltGuillaume/WikiMuch/raw/master/logo.png
 // @match       *://*.wikipedia.org/w/*
@@ -265,8 +265,8 @@ table:not(.navbox-subgroup):not(.ambox), .infobox, .mbox-small, .navbox, .quoteb
 }
 .mwe-popups p { line-height: 19.5px !important }
 .mwe-popups-container { background: #f9f9f9 !important }
-.mwe-popups-extract[dir="ltr"]:after { background-image: linear-gradient(to right, rgba(249,249,249,0), #f9f9f9 50%) !important }
-.mwe-popups-extract[dir="rtl"]:after { background-image: linear-gradient(to left, rgba(249,249,249,0),#f9f9f9 50%) !important }
+.mwe-popups-extract[dir="ltr"]:after { background: linear-gradient(to right, transparent, #f9f9f9 70%) !important }
+.mwe-popups-extract[dir="rtl"]:after { background: linear-gradient(to left,  transparent, #f9f9f9 70%) !important }
 .infobox td, .infobox th, .tright td, .tright th, .toccolours td, .toccolours th {
 	padding: 5px !important;
 	background: transparent !important;
@@ -465,6 +465,8 @@ html.dark .quotebox,
 html.dark .referencetooltip li,
 html.dark .thumb,
 html.dark .toccolours { border-color: #1c1c1b !important }
+html.dark .mwe-popups-extract[dir="ltr"]:after { background: linear-gradient(to right, transparent, #10100f 70%) !important }
+html.dark .mwe-popups-extract[dir="rtl"]:after { background: linear-gradient(to left,  transparent, #10100f 70%) !important }
 `);
 
 document.addEventListener('DOMContentLoaded', function() {
