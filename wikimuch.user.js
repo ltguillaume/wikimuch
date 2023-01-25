@@ -3,7 +3,7 @@
 // @namespace   https://greasyfork.org
 // @description Clean and minimal theme for new Wikipedia. Press F8 for dark mode.
 // @author      Guillaume
-// @version     3.0.0
+// @version     3.1.0
 // @downloadURL https://codeberg.org/ltGuillaume/WikiMuch/raw/master/wikimuch.user.js
 // @icon        https://codeberg.org/ltGuillaume/WikiMuch/raw/master/logo.png
 // @match       https://*.wikipedia.org/*
@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', function() {
 /* Dark theme */
 :root.dark {
 	--nav-bg:        #111110;
-	--nav-text:      #1d1d1c;
+	--nav-text:      #888;
 	--link-text:     #6b6b5f;
 	--main-bg:       #10100f;
 	--main-text:     #999;
@@ -51,8 +51,20 @@ document.addEventListener('DOMContentLoaded', function() {
 
 /* Main page container */
 body, .mw-page-container {
+	max-width: unset;
+	margin: 0 !important;
+	padding: 0 !important;
 	background: var(--main-bg);
 	color: var(--main-text);
+}
+
+* {
+	outline-color: var(--box-border) !important;
+}
+
+:focus {
+	border-color: var(--box-border) !important;
+	box-shadow: none !important;
 }
 
 /* Links */
@@ -88,6 +100,21 @@ a:hover,
 	border-color: var(--main-border) !important;
 }
 
+/* Main menu button */
+.mw-ui-icon-flush-right {
+	margin-right: 0 !important;
+	padding-left: 1.25em;
+}
+
+/* Search field */
+.vector-search-box-input,
+.cdx-text-input__input {
+	color: var(--main-text);
+	background-color: var(--main-bg);
+	border-color: var(--main-border) !important;
+	box-shadow: none !important;
+}
+
 /* Main menu, TOC */
 .vector-feature-page-tools-disabled .vector-main-menu,
 .vector-feature-page-tools-disabled #vector-toc-pinned-container .vector-toc {
@@ -95,7 +122,8 @@ a:hover,
 }
 
 body.vector-toc-pinned .mw-ui-icon-flush-left,
-.vector-feature-page-tools-disabled .vector-main-menu {
+.vector-feature-page-tools-disabled .vector-main-menu,
+.vector-feature-page-tools-disabled.vector-toc-pinned #mw-panel-toc {
 	margin-left: 0 !important;
 }
 
@@ -120,7 +148,6 @@ input[type="checkbox"]:hover + .mw-ui-button.mw-ui-progressive.mw-ui-quiet,
 	color: var(--link-text);
 	border: none;
 	box-shadow: none;
-	outline: none;
 }
 
 /* Language chooser drop-down icon color when clicked */
@@ -132,6 +159,18 @@ input[type="checkbox"]:hover + .mw-ui-button.mw-ui-progressive.mw-ui-quiet,
 .mw-ui-icon-wikimedia-language-progressive::before,
 .mw-parser-output a.external {
 	background: none;
+}
+
+/* Main content */
+.mw-content-container {
+	min-width: unset;
+	margin-right: 2em;
+}
+
+@media screen and (max-width: 1000px) {
+	.vector-feature-page-tools-disabled .mw-page-container-inner {
+		margin-left: 2em;
+	}
 }
 
 /* Tabs */
@@ -156,6 +195,7 @@ h1, h2, h3, h4, h5, h6 {
 /* Tables, boxes (.mw-parser-output > ...) */
 .infobox,
 .help-box,
+.mw-message-box,
 .navbox,
 .navbox-subgroup,
 .side-box,
@@ -177,6 +217,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .wikitable th,
+.navbox-even,
+.navbox-abovebelow,
 .infobox th.infobox-above,
 .infobox th.infobox-header,
 .navbox .navbox-group {
@@ -188,8 +230,43 @@ h1, h2, h3, h4, h5, h6 {
 	margin-right: 2em;
 }
 
-/* Language/edit/footer icons */
+/* "Outline" colors */
+input[type='checkbox']:focus,
+.mw-ui-button.mw-ui-progressive.mw-ui-quiet:focus
+.mw-ui-button.mw-ui-quiet:focus {
+	border: none !important;
+	box-shadow: inset 0 0 0 1px var(--main-border) !important;
+}
+
+.vector-menu-checkbox:focus,
+.vector-menu-checkbox:focus + .vector-menu-heading {
+	outline: none !important;
+}
+
+/* Adjust colors for icons */
 img.noprint,
+.oo-ui-iconElement-icon,
+.vector-menu-checkbox::after,
+.vector-dropdown > .vector-menu-heading:after {
+	filter: hue-rotate(-35deg);
+}
+
+html.dark img.noprint,
+html.dark .oo-ui-iconElement-icon,
+html.dark .vector-menu-checkbox::after,
+html.dark .vector-dropdown > .vector-menu-heading:after {
+	filter: grayscale(100%);
+}
+
+html.dark .mw-logo-wordmark,
+html.dark .mw-logo-tagline,
+html.dark .mw-ui-icon,
+html.dark .searchButton {
+	filter: invert(50%);
+}
+
+/* Hide site notice, TOC overflow gradient, footer icons */
+.vector-sitenotice-container,
 .vector-toc-pinned #vector-toc-pinned-container .vector-toc::after,
 #footer-icons {
 	display: none;
