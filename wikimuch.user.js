@@ -3,7 +3,7 @@
 // @namespace   https://greasyfork.org
 // @description Clean and minimal theme for new Wikipedia. Press F8 for dark mode.
 // @author      Guillaume
-// @version     3.1.1
+// @version     3.2.0
 // @downloadURL https://codeberg.org/ltGuillaume/WikiMuch/raw/master/wikimuch.user.js
 // @icon        https://codeberg.org/ltGuillaume/WikiMuch/raw/master/logo.png
 // @match       https://*.wikipedia.org/*
@@ -15,6 +15,9 @@
 // ==/UserScript==
 
 document.addEventListener('DOMContentLoaded', function() {
+	if (document.body.classList.contains('skin-vector-legacy'))
+		document.location.search += '&useskin=vector-2022';
+
 	darkMode();
 	GM_addStyle(`
 
