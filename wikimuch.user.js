@@ -3,7 +3,7 @@
 // @namespace   https://greasyfork.org
 // @description Clean and minimal theme for new Wikipedia. Press F8 for dark mode.
 // @author      Guillaume
-// @version     3.1.0
+// @version     3.1.1
 // @downloadURL https://codeberg.org/ltGuillaume/WikiMuch/raw/master/wikimuch.user.js
 // @icon        https://codeberg.org/ltGuillaume/WikiMuch/raw/master/logo.png
 // @match       https://*.wikipedia.org/*
@@ -150,6 +150,10 @@ input[type="checkbox"]:hover + .mw-ui-button.mw-ui-progressive.mw-ui-quiet,
 	box-shadow: none;
 }
 
+.mw-ui-button:not(.mw-ui-icon-element) {
+	padding-right: 0;
+}
+
 /* Language chooser drop-down icon color when clicked */
 .vector-page-titlebar .mw-portlet-lang .vector-menu-heading.mw-ui-progressive.mw-ui-quiet::after {
 	background-image: url(/w/skins/Vector/resources/common/images/arrow-down-progressive.svg?f0b59) !important;
@@ -162,15 +166,14 @@ input[type="checkbox"]:hover + .mw-ui-button.mw-ui-progressive.mw-ui-quiet,
 }
 
 /* Main content */
-.mw-content-container {
-	min-width: unset;
-	margin-right: 2em;
+.mw-page-container-inner {
+	column-gap: 0 !important;
 }
 
-@media screen and (max-width: 1000px) {
-	.vector-feature-page-tools-disabled .mw-page-container-inner {
-		margin-left: 2em;
-	}
+.mw-content-container {
+	min-width: unset;
+	margin-left: 2.5em;
+	margin-right: 2em;
 }
 
 /* Tabs */
@@ -263,6 +266,15 @@ html.dark .mw-logo-tagline,
 html.dark .mw-ui-icon,
 html.dark .searchButton {
 	filter: invert(50%);
+}
+
+/* Footer padding */
+.mw-footer-container {
+	padding: 0;
+}
+
+.mw-footer {
+	padding: 1em 1.25em !important;
 }
 
 /* Hide site notice, TOC overflow gradient, footer icons */
