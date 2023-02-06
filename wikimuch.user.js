@@ -3,7 +3,7 @@
 // @namespace   https://greasyfork.org
 // @description Clean and minimal theme for new Wikipedia. Press F8 for dark mode.
 // @author      Guillaume
-// @version     3.2.2
+// @version     3.2.3
 // @downloadURL https://codeberg.org/ltGuillaume/WikiMuch/raw/master/wikimuch.user.js
 // @icon        https://codeberg.org/ltGuillaume/WikiMuch/raw/master/logo.png
 // @match       https://*.wikipedia.org/*
@@ -109,12 +109,17 @@ a:hover,
 	}
 
 
-/* TOC background and content padding for Search/Edit/History/etc. pages */
-.vector-feature-limited-width-content-disabled main {
-	padding: 1.25em !important;
-}
-.vector-feature-limited-width-content-disabled #mw-panel-toc {
+/* TOC background and content padding for pages without a TOC */
+.vector-feature-page-tools-disabled #mw-sidebar-checkbox:not(:checked) ~ .vector-sidebar-container-no-toc ~ #mw-panel-toc,
+.vector-feature-page-tools-disabled .vector-toc-unpinned #mw-sidebar-checkbox:not(:checked) ~ #mw-panel-toc,
+.vector-feature-page-tools-disabled.vector-toc-unpinned #mw-sidebar-checkbox:not(:checked) ~ #mw-panel-toc {
 	background: unset !important;
+}
+
+body.action-edit main,
+body.action-history main,
+body.mw-special-Search main {
+	padding: 1.25em !important;
 }
 
 /* Main menu button */
@@ -140,7 +145,7 @@ a:hover,
 
 body.vector-toc-pinned .mw-ui-icon-flush-left,
 .vector-feature-page-tools-disabled .vector-main-menu,
-.vector-feature-page-tools-disabled.vector-toc-pinned #mw-panel-toc {
+.vector-feature-page-tools-disabled .vector-toc-pinned #mw-panel-toc {
 	margin-left: 0 !important;
 }
 
