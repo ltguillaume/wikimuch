@@ -3,7 +3,7 @@
 // @namespace   https://greasyfork.org
 // @description Clean and minimal theme for new Wikipedia. Press F8 for dark mode.
 // @author      Guillaume
-// @version     3.2.3
+// @version     3.2.4
 // @downloadURL https://codeberg.org/ltGuillaume/WikiMuch/raw/master/wikimuch.user.js
 // @icon        https://codeberg.org/ltGuillaume/WikiMuch/raw/master/logo.png
 // @match       https://*.wikipedia.org/*
@@ -246,7 +246,8 @@ h1, h2, h3, h4, h5, h6 {
 .navbox-abovebelow,
 .infobox th.infobox-above,
 .infobox th.infobox-header,
-.navbox .navbox-group {
+.navbox .navbox-group,
+.sidebar-heading {
 	background-color: var(--box-head-bg) !important;
 }
 
