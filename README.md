@@ -1,7 +1,7 @@
 <img src="logo.png" align="right">
 
 # WikiMuch
-by ltGuillaume: [Codeberg](https://codeberg.org/ltGuillaume) | [GitHub](https://github.com/ltGuillaume) | [Buy me a beer](https://buymeacoff.ee/ltGuillaume) 🍺
+by ltGuillaume: [Codeberg](https://codeberg.org/ltguillaume) | [GitHub](https://github.com/ltGuillaume) | [Buy me a beer](https://buymeacoff.ee/ltGuillaume) 🍺
 
 CSS and JavaScript interface changes to clean up Wikipedia. Press F8 for dark mode. Remade for the recent Wikipedia Vector 2022 facelift.
 
