@@ -3,9 +3,9 @@
 // @namespace   https://greasyfork.org
 // @description Wikipedia clean and minimal theme. Press B to show/hide sidebar. Press F9 for dark mode. Custom fonts can be set via userscript variables mainFont, textFont and monoFont. Inspired by https://userstyles.org/styles/102164 and https://greasyfork.org/en/scripts/10731.
 // @author      Guillaume
-// @version     2.3.5
-// @downloadURL https://codeberg.org/ltguillaume/wikimuch/raw/master/wikiless.user.js
-// @icon        https://codeberg.org/ltguillaume/wikimuch/raw/master/logo.png
+// @version     2.3.6
+// @downloadURL https://codeberg.org/ltguillaume/wikimuch/raw/main/wikiless.user.js
+// @icon        https://codeberg.org/ltguillaume/wikimuch/raw/main/logo.png
 // @match       *://*.wikiless.org/w/*
 // @match       *://*.wikiless.org/wiki/*
 // @grant       GM_addStyle

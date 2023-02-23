@@ -3,9 +3,9 @@
 // @namespace   https://greasyfork.org
 // @description Clean and minimal theme for new Wikipedia. Press F8 for dark mode.
 // @author      Guillaume
-// @version     3.2.5
-// @downloadURL https://codeberg.org/ltguillaume/wikimuch/raw/master/wikimuch.user.js
-// @icon        https://codeberg.org/ltguillaume/wikimuch/raw/master/logo.png
+// @version     3.2.6
+// @downloadURL https://codeberg.org/ltguillaume/wikimuch/raw/main/wikimuch.user.js
+// @icon        https://codeberg.org/ltguillaume/wikimuch/raw/main/logo.png
 // @match       https://*.wikipedia.org/*
 // @homepageURL https://greasyfork.org/scripts/31127
 // @grant       GM_addStyle
