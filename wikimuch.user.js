@@ -3,7 +3,7 @@
 // @namespace   https://greasyfork.org
 // @description Clean and minimal theme for new Wikipedia. Press F8 for dark mode.
 // @author      Guillaume
-// @version     3.2.6
+// @version     3.2.7
 // @downloadURL https://codeberg.org/ltguillaume/wikimuch/raw/main/wikimuch.user.js
 // @icon        https://codeberg.org/ltguillaume/wikimuch/raw/main/logo.png
 // @match       https://*.wikipedia.org/*
@@ -139,13 +139,17 @@ body.mw-special-Search main {
 
 /* Main menu, TOC */
 .vector-feature-page-tools-disabled .vector-main-menu,
-.vector-feature-page-tools-disabled #vector-toc-pinned-container .vector-toc {
+.vector-feature-page-tools-disabled #vector-toc-pinned-container .vector-toc,
+.vector-toc .vector-toc-list-item-active > .vector-toc-link .vector-toc-text,
+.vector-toc .vector-toc-level-1-active:not(.vector-toc-list-item-expanded) > .vector-toc-link .vector-toc-text,
+.vector-toc .vector-toc-list-item-active.vector-toc-level-1-active > .vector-toc-link .vector-toc-text {
 	width: 100%;
 }
 
 body.vector-toc-pinned .mw-ui-icon-flush-left,
 .vector-feature-page-tools-disabled .vector-main-menu,
-.vector-feature-page-tools-disabled .vector-toc-pinned #mw-panel-toc {
+.vector-feature-page-tools-disabled .vector-toc-pinned #mw-panel-toc,
+.vector-feature-page-tools-disabled.vector-feature-toc-pinned-enabled #mw-panel-toc {
 	margin-left: 0 !important;
 }
 
@@ -273,14 +277,14 @@ input[type='checkbox']:focus,
 img.noprint,
 .oo-ui-iconElement-icon,
 .vector-menu-checkbox::after,
-.vector-dropdown > .vector-menu-heading:after {
+.vector-dropdown > .vector-menu-heading::after {
 	filter: hue-rotate(-35deg);
 }
 
 html.dark img.noprint,
 html.dark .oo-ui-iconElement-icon,
 html.dark .vector-menu-checkbox::after,
-html.dark .vector-dropdown > .vector-menu-heading:after {
+html.dark .vector-dropdown > .vector-menu-heading::after {
 	filter: grayscale(100%);
 }
 
@@ -302,7 +306,7 @@ html.dark .searchButton {
 
 /* Hide site notice, TOC overflow gradient, footer icons */
 .vector-sitenotice-container,
-.vector-toc-pinned #vector-toc-pinned-container .vector-toc::after,
+#vector-toc-pinned-container .vector-toc::after,
 #footer-icons {
 	display: none;
 }
