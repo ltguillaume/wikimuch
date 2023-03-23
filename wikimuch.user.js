@@ -3,7 +3,7 @@
 // @namespace   https://greasyfork.org
 // @description Clean and minimal theme for new Wikipedia. Press F8 for dark mode.
 // @author      Guillaume
-// @version     3.2.7
+// @version     3.2.8
 // @downloadURL https://codeberg.org/ltguillaume/wikimuch/raw/main/wikimuch.user.js
 // @icon        https://codeberg.org/ltguillaume/wikimuch/raw/main/logo.png
 // @match       https://*.wikipedia.org/*
@@ -89,12 +89,14 @@ a:hover,
 .mw-header,
 .vector-feature-page-tools-disabled .vector-main-menu,
 .vector-menu-content,
+#mw-panel,
 #mw-panel-toc,
 #vector-toc-pinned-container,
 .vector-toc,
 .vector-toc .vector-toc-list-item-active > .vector-toc-link,
 .vector-toc .vector-toc-level-1-active:not(.vector-toc-list-item-expanded) > .vector-toc-link,
 .vector-toc .vector-toc-list-item-active.vector-toc-level-1-active > .vector-toc-link,
+#vector-main-menu-pinned-container .vector-main-menu,
 .navbox-title,
 .mw-parser-output .tmbox,
 .catlinks {
@@ -147,10 +149,14 @@ body.mw-special-Search main {
 }
 
 body.vector-toc-pinned .mw-ui-icon-flush-left,
-.vector-feature-page-tools-disabled .vector-main-menu,
-.vector-feature-page-tools-disabled .vector-toc-pinned #mw-panel-toc,
-.vector-feature-page-tools-disabled.vector-feature-toc-pinned-enabled #mw-panel-toc {
+#vector-main-menu-pinned-container .vector-main-menu,
+.vector-toc-pinned #mw-panel-toc,
+.vector-feature-toc-pinned-enabled #mw-panel-toc {
 	margin-left: 0 !important;
+}
+
+#vector-main-menu-pinned-container .vector-main-menu {
+	margin-top: 0 !important;
 }
 
 /* Pinned Table of Contents */
