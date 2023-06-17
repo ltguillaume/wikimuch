@@ -3,7 +3,7 @@
 // @namespace   https://greasyfork.org
 // @description Clean and minimal theme for new Wikipedia. Press F8 for dark mode.
 // @author      Guillaume
-// @version     3.3.0
+// @version     3.3.1
 // @downloadURL https://codeberg.org/ltguillaume/wikimuch/raw/main/wikimuch.user.js
 // @icon        https://codeberg.org/ltguillaume/wikimuch/raw/main/logo.png
 // @match       https://*.wikipedia.org/*
@@ -174,6 +174,9 @@ body.vector-toc-pinned .mw-body-header {
 }
 
 /* Main menu button, language chooser */
+.cdx-button--weight-quiet.cdx-button--action-progressive:enabled,
+.cdx-button--weight-quiet.cdx-button--action-progressive.cdx-button--fake-button--enabled,
+input:hover + .vector-menu-heading.cdx-button.cdx-button--action-progressive,
 .mw-ui-button.mw-ui-icon-element:not(.mw-ui-icon-with-label-desktop),
 input[type="checkbox"]:hover + .mw-ui-button.mw-ui-progressive.mw-ui-quiet,
 .mw-ui-button.mw-ui-progressive.mw-ui-quiet,
@@ -286,6 +289,7 @@ input[type='checkbox']:focus,
 /* Adjust colors for icons */
 img.noprint,
 .oo-ui-iconElement-icon,
+.vector-icon,
 .vector-menu-checkbox::after,
 .vector-dropdown > .vector-menu-heading::after {
 	filter: hue-rotate(-35deg);
