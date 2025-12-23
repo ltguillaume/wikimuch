@@ -3,7 +3,7 @@
 // @namespace   https://greasyfork.org
 // @description Clean and minimal theme for new Wikipedia. Press F8 for dark mode.
 // @author      Guillaume
-// @version     3.3.5
+// @version     3.3.6
 // @downloadURL https://codeberg.org/ltguillaume/wikimuch/raw/main/wikimuch.user.js
 // @icon        https://codeberg.org/ltguillaume/wikimuch/raw/main/logo.png
 // @match       https://*.wikipedia.org/*
@@ -86,6 +86,10 @@ a:hover,
 }
 
 /* Header, main menu, user menu, TOC */
+.vector-header-container .mw-header {
+	padding-left: 1rem !important;
+}
+
 .vector-feature-zebra-design-disabled .vector-header-container {
 	max-width: 100%;
 	padding: 0;
@@ -106,12 +110,18 @@ a:hover,
 .vector-toc .vector-toc-level-1-active:not(.vector-toc-list-item-expanded) > .vector-toc-link,
 .vector-toc .vector-toc-list-item-active.vector-toc-level-1-active > .vector-toc-link,
 #vector-main-menu-pinned-container .vector-main-menu,
+.vector-dropdown .vector-dropdown-content,
 .navbox-title,
 .mw-parser-output .tmbox,
 .catlinks {
 	color: var(--nav-text);
 	background: var(--nav-bg) !important;
 	border-color: var(--main-border) !important;
+}
+.mw-page-container-inner .vector-column-start {
+	margin-top: 0;
+	padding-left: 10px;
+	background: var(--nav-bg) !important;
 }
 
 /* Content width when limited content width is toggled off */
@@ -139,9 +149,10 @@ body.mw-special-Search main {
 	padding-left: 1.25em;
 }
 
-/* Search field */
+/* Search field, Appearance settings */
 .vector-search-box-input,
-.cdx-text-input__input {
+.cdx-text-input__input,
+.vector-pinned-container {
 	color: var(--main-text);
 	background-color: var(--main-bg);
 	border-color: var(--main-border) !important;
@@ -177,6 +188,12 @@ body.vector-toc-pinned .mw-body-header {
 .vector-feature-page-tools-disabled #vector-toc-pinned-container .vector-toc,
 .vector-feature-page-tools-disabled #vector-toc-pinned-container .vector-toc::after {
 	margin-left: 0;
+}
+
+.vector-pinnable-header-toggle-button,
+.vector-appearance .vector-menu-content,
+.vector-sticky-pinned-container::after {
+	background: none !important;
 }
 
 /* Main menu button, language chooser */
