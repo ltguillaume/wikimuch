@@ -3,7 +3,7 @@
 // @namespace   https://greasyfork.org
 // @description Clean and minimal theme for new Wikipedia. Press F8 for dark mode.
 // @author      Guillaume
-// @version     3.3.6
+// @version     3.3.7
 // @downloadURL https://codeberg.org/ltguillaume/wikimuch/raw/main/wikimuch.user.js
 // @icon        https://codeberg.org/ltguillaume/wikimuch/raw/main/logo.png
 // @match       https://*.wikipedia.org/*
@@ -50,6 +50,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	--box-text:      #888;
 	--box-border:    #1c1c1b;
 	--navbox-border: #111110;
+	color-scheme: dark;
 }
 
 /* Main page container */
@@ -233,7 +234,8 @@ input[type="checkbox"]:hover + .mw-ui-button.mw-ui-progressive.mw-ui-quiet,
 
 .mw-content-container {
 	min-width: unset;
-	margin-left: 2.5em;
+	margin-top: 1.25em;
+	margin-left: 2.25em;
 	margin-right: 2em;
 }
 
@@ -324,6 +326,8 @@ html.dark .vector-dropdown > .vector-menu-heading::after {
 	filter: grayscale(100%);
 }
 
+html.dark .vector-page-titlebar .mw-portlet-lang .vector-dropdown-label.cdx-button--action-progressive.cdx-button--weight-quiet::after,
+html.dark .vector-icon[class*="-progressive"],
 html.dark .mw-logo-wordmark,
 html.dark .mw-logo-tagline,
 html.dark .mw-ui-icon,
